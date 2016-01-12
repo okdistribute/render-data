@@ -1,7 +1,7 @@
 {
   "name": "render-data",
   "version": "1.0.0",
-  "description": "[![NPM](https://nodei.co/npm/render-data.png)](https://nodei.co/npm/render-data/)",
+  "description": "Automagically render data files in the browser, like render-media",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,9 +11,13 @@
     "url": "git+https://github.com/karissa/render-data.git"
   },
   "author": "Karissa McKelvey <karissa@karissamck.com> (http://karissamck.com/)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/karissa/render-data/issues"
   },
-  "homepage": "https://github.com/karissa/render-data#readme"
+  "homepage": "https://github.com/karissa/render-data#readme",
+  "dependencies": {
+    "render-media": "^2.0.2",
+    "stream-to-blob-url": "^1.0.0"
+  }
 }
