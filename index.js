@@ -19,16 +19,25 @@ function append (file, el, cb) {
   if (extname === '.csv') {
     var t = document.createElement('table')
     var parser = file.createReadStream().pipe(csv())
+
+    var more = document.createElement('a')
+    more.innerText = 'load 10 more'
+    more.onclick = function () {
+      parser.resume()
+    }
+    more.href = 'javascript:void(0)'
+
+    var inc = 0
     parser.on('data', function (data) {
-      // if (!inc++) {
-      //   var tr = document.createElement('tr')
-      //   Object.keys(data).forEach(function (name) {
-      //     var th = document.createElement('th')
-      //     th.innerText = name
-      //     tr.appendChild(th)
-      //   })
-      //   t.appendChild(tr)
-      // }
+      if (!inc++) {
+        var tr = document.createElement('tr')
+        Object.keys(data).forEach(function (name) {
+          var th = document.createElement('th')
+          th.innerText = name
+          tr.appendChild(th)
+        })
+        t.appendChild(tr)
+      }
       var tr = document.createElement('tr')
       Object.keys(data).forEach(function (name) {
         var td = document.createElement('td')
@@ -37,20 +46,21 @@ function append (file, el, cb) {
       })
       t.appendChild(tr)
       el.appendChild(t)
-      // if (inc % 5 === 0) {
-      //   if (inc !== 5) $display.contentDocument.body.removeChild(more)
-      //   $display.contentDocument.body.appendChild(more)
-      //   parser.pause()
-      // }
+      if (inc % 10 === 0) {
+        if (inc !== 10) { el.removeChild(more) }
+        el.appendChild(more)
+        parser.pause()
+      }
     })
 
-
+    parser.on('end', function () {
+      el.removeChild(more)
+    })
 
   }
   else {
     media.append(file, el, function (err, elem) {
       if (err) {
-        debugger;
         elem = document.createElement('iframe')
         streamToBlobURL(file.createReadStream(), file.length, 'text/plain', function (err, url) {
           if (err) return cb(err)
@@ -64,4 +74,3 @@ function append (file, el, cb) {
     })
   }
 }
-
