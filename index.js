@@ -7,7 +7,6 @@ var appendCSV = require('./lib/append-csv')
 module.exports = { render: render, append: append }
 
 function render (entry, el, cb) {
-  validateFile(file)
   if (typeof el === 'string') el = document.querySelector(el)
   el.innerHTML = ''
   append(entry, el, cb)
