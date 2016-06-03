@@ -28,6 +28,7 @@ function append (file, el, cb) {
     more.href = 'javascript:void(0)'
 
     var inc = 0
+    var incrBy = 10
     parser.on('data', function (data) {
       if (!inc++) {
         var tr = document.createElement('tr')
@@ -46,15 +47,14 @@ function append (file, el, cb) {
       })
       t.appendChild(tr)
       el.appendChild(t)
-      if (inc % 10 === 0) {
-        if (inc !== 10) { el.removeChild(more) }
+      if (inc % incrBy === 0) {
         el.appendChild(more)
         parser.pause()
       }
     })
 
     parser.on('end', function () {
-      el.removeChild(more)
+      if (inc >= incrBy) el.removeChild(more)
     })
 
   }
