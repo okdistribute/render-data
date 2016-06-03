@@ -19,20 +19,14 @@ function append (file, el, cb) {
 
   var extname = path.extname(file.name).toLowerCase()
   if (extname === '.csv') {
-    appendCSV(file, el, cb)
+    appendCSV(file, el, function (err, elem) {
+      if (err) return handleError(file, el, cb)
+      return cb(null, elem)
+    })
   }
   else {
     media.append(file, el, function (err, elem) {
-      if (err) {
-        elem = document.createElement('iframe')
-        streamToBlobURL(file.createReadStream(), file.length, 'text/plain', function (err, url) {
-          if (err) return cb(err)
-          elem.src = url
-          elem.sandbox = 'allow-forms allow-scripts'
-          el.appendChild(elem)
-          return cb(null, elem)
-        })
-      }
+      if (err) return handleError(file, el, cb)
       return cb(null, elem)
     })
   }
@@ -48,4 +42,15 @@ function validateFile (file) {
   if (typeof file.createReadStream !== 'function') {
     throw new Error('missing or invalid file.createReadStream property')
   }
+}
+
+function handleError (file, el, cb) {
+  var elem = document.createElement('iframe')
+  streamToBlobURL(file.createReadStream(), file.name, 'text/plain', function (err, url) {
+    if (err) return cb(err)
+    elem.src = url
+    elem.sandbox = 'allow-forms allow-scripts'
+    el.appendChild(elem)
+    return cb(null, elem)
+  })
 }
