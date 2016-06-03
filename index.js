@@ -32,6 +32,7 @@ function append (file, el, cb) {
           el.appendChild(elem)
           return cb(null, elem)
         })
+        return
       }
       return cb(null, elem)
     })
