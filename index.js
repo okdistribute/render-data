@@ -7,12 +7,14 @@ var appendCSV = require('./lib/append-csv')
 module.exports = { render: render, append: append }
 
 function render (entry, el, cb) {
+  validateFile(file)
   if (typeof el === 'string') el = document.querySelector(el)
   el.innerHTML = ''
   append(entry, el, cb)
 }
 
 function append (file, el, cb) {
+  validateFile(file)
   if (typeof el === 'string') el = document.querySelector(el)
   if (!cb) cb = function () {}
 
@@ -37,3 +39,14 @@ function append (file, el, cb) {
   }
 }
 
+function validateFile (file) {
+  if (file == null) {
+    throw new Error('file cannot be null or undefined')
+  }
+  if (typeof file.name !== 'string') {
+    throw new Error('missing or invalid file.name property')
+  }
+  if (typeof file.createReadStream !== 'function') {
+    throw new Error('missing or invalid file.createReadStream property')
+  }
+}
