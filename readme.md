@@ -2,7 +2,7 @@
 
 Show a data stream in a browser. This automatically detects the extension, and displays the data intelligently, supporting video, audio, and images (thanks to [render-media](http://npmjs.com/package/render-media)). It will attempt to display unrecognized file types as text.
 
-This module is used by [expore-dat](http://github.com/karissa/explore-dat).
+This module is used by [explore-dat](http://github.com/karissa/explore-dat).
 
 ### install
 
