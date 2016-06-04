@@ -39,9 +39,6 @@ function validateFile (file) {
   if (typeof file.name !== 'string') {
     throw new Error('missing or invalid file.name property')
   }
-  if (typeof file.createReadStream !== 'function') {
-    throw new Error('missing or invalid file.createReadStream property')
-  }
 }
 
 function handleError (file, el, cb) {
