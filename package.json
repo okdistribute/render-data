@@ -19,6 +19,6 @@
   "dependencies": {
     "csv-parser": "^1.9.3",
     "render-media": "^2.0.2",
-    "stream-to-blob-url": "^1.0.0"
+    "stream-to-blob-url": "^2.0.0"
   }
 }
