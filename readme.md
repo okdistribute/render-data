@@ -15,7 +15,9 @@ npm install render-data
 var data = require('render-data')
 var file = {
   name: 'stuff.R',
-  createReadStream: fs.createReadStream('/path/to/my/data/and/stuff')
+  createReadStream: function () { 
+    return fs.createReadStream('/path/to/my/data/and/stuff')
+  }
 }
 data.render(file, elem, function (err) {
   console.log('done rendering')
