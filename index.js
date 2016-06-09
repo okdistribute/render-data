@@ -43,7 +43,7 @@ function validateFile (file) {
 
 function handleError (file, el, cb) {
   var elem = document.createElement('iframe')
-  streamToBlobURL(file.createReadStream(), file.name, 'text/plain', function (err, url) {
+  streamToBlobURL(file.createReadStream(), 'text/plain', function (err, url) {
     if (err) return cb(err)
     elem.src = url
     elem.sandbox = 'allow-forms allow-scripts'
