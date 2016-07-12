@@ -1,6 +1,8 @@
 # render-data
 
-Show a data stream in a browser. This automatically detects the extension, and displays the data intelligently, supporting video, audio, and images (thanks to [render-media](http://npmjs.com/package/render-media)). It will also attempt to display complicated filetypes intelligently, like .csv or shapefiles (coming soon).
+Show a data stream in a browser. This automatically detects the extension, and displays the data intelligently, supporting video, audio, and images (thanks to [render-media](http://npmjs.com/package/render-media)). 
+
+It will attempt to display filetypes intelligently, like .csv and .json.
 
 
 ### install
