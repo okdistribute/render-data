@@ -4,6 +4,13 @@ var streamToBlobURL = require('stream-to-blob-url')
 
 var appendCSV = require('./lib/append-csv')
 
+var exts = {
+  '.csv': 'csv',
+  '.tsv': 'csv',
+  '.json': 'raw',
+  '.tex': 'raw'
+}
+
 module.exports = { render: render, append: append }
 
 function render (entry, el, cb) {
@@ -17,16 +24,17 @@ function append (file, el, cb) {
   if (typeof el === 'string') el = document.querySelector(el)
   if (!cb) cb = function () {}
 
-  var extname = path.extname(file.name).toLowerCase()
-  if (extname === '.csv') {
+  var filetype = exts[path.extname(file.name).toLowerCase()]
+  if (filetype === 'csv') {
     appendCSV(file, el, function (err, elem) {
-      if (err) return handleError(file, el, cb)
+      if (err) return cb(err)
       return cb(null, elem)
     })
-  }
-  else {
+  } else if (filetype === 'raw') {
+    raw(file, el, cb)
+  } else {
     media.append(file, el, function (err, elem) {
-      if (err) return handleError(file, el, cb)
+      if (err) return cb(err)
       return cb(null, elem)
     })
   }
@@ -41,7 +49,7 @@ function validateFile (file) {
   }
 }
 
-function handleError (file, el, cb) {
+function raw (file, el, cb) {
   var elem = document.createElement('iframe')
   streamToBlobURL(file.createReadStream(), function (err, url) {
     if (err) return cb(err)
