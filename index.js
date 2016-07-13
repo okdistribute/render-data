@@ -1,6 +1,10 @@
 var path = require('path')
 var media = require('render-media')
+var pump = require('pump')
 var streamToBlobURL = require('stream-to-blob-url')
+var L = require('leaflet')
+var geoJsonStream = require('geojson-stream')
+var leafletStream = require('leaflet-geojson-stream')
 
 var appendCSV = require('./lib/append-csv')
 
@@ -8,7 +12,8 @@ var exts = {
   '.csv': 'csv',
   '.tsv': 'csv',
   '.json': 'raw',
-  '.tex': 'raw'
+  '.tex': 'raw',
+  '.geojson': 'geojson'
 }
 
 module.exports = { render: render, append: append }
@@ -28,6 +33,17 @@ function append (file, el, cb) {
   if (filetype === 'csv') {
     appendCSV(file, el, function (err, elem) {
       if (err) return cb(err)
+      return cb(null, elem)
+    })
+  } else if (filetype === 'geojson') {
+    var elem = document.createElement('div')
+    elem.style.cssText = 'height:500px;'
+    var map = L.map(elem).setView([0, 0], 2)
+    var gj = L.geoJson().addTo(map)
+    var stream = leafletStream.layerPipe(gj)
+    pump(file.createReadStream(), geoJsonStream.parse(), stream, function (err) {
+      if (err) return cb(err)
+      el.appendChild(elem)
       return cb(null, elem)
     })
   } else if (filetype === 'raw') {
