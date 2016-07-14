@@ -20,6 +20,7 @@
     "csv-parser": "^1.9.3",
     "geojson-stream": "0.0.1",
     "leaflet": "^0.7.7",
+    "leaflet-default": "^1.0.0",
     "leaflet-geojson-stream": "0.0.0",
     "pump": "^1.0.1",
     "render-media": "^2.0.2",
