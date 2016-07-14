@@ -1,14 +1,16 @@
 var path = require('path')
 var media = require('render-media')
-var streamToBlobURL = require('stream-to-blob-url')
 
-var appendCSV = require('./lib/append-csv')
+var raw = require('./lib/raw')
+var csv = require('./lib/csv')
+var geojson = require('./lib/geojson')
 
 var exts = {
   '.csv': 'csv',
   '.tsv': 'csv',
   '.json': 'raw',
-  '.tex': 'raw'
+  '.tex': 'raw',
+  '.geojson': 'geojson'
 }
 
 module.exports = { render: render, append: append }
@@ -25,19 +27,10 @@ function append (file, el, cb) {
   if (!cb) cb = function () {}
 
   var filetype = exts[path.extname(file.name).toLowerCase()]
-  if (filetype === 'csv') {
-    appendCSV(file, el, function (err, elem) {
-      if (err) return cb(err)
-      return cb(null, elem)
-    })
-  } else if (filetype === 'raw') {
-    raw(file, el, cb)
-  } else {
-    media.append(file, el, function (err, elem) {
-      if (err) return cb(err)
-      return cb(null, elem)
-    })
-  }
+  if (filetype === 'csv') return csv(file, el, cb)
+  if (filetype === 'geojson') return geojson(file, el, cb)
+  if (filetype === 'raw') return raw(file, el, cb)
+  media.append(file, el, cb)
 }
 
 function validateFile (file) {
@@ -47,15 +40,4 @@ function validateFile (file) {
   if (typeof file.name !== 'string') {
     throw new Error('missing or invalid file.name property')
   }
-}
-
-function raw (file, el, cb) {
-  var elem = document.createElement('iframe')
-  streamToBlobURL(file.createReadStream(), function (err, url) {
-    if (err) return cb(err)
-    elem.src = url
-    elem.sandbox = 'allow-forms allow-scripts'
-    el.appendChild(elem)
-    return cb(null, elem)
-  })
 }

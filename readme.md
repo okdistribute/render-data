@@ -1,8 +1,8 @@
 # render-data
 
-Show a data stream in a browser. This automatically detects the extension, and displays the data intelligently, supporting video, audio, and images (thanks to [render-media](http://npmjs.com/package/render-media)). 
+Show a data stream in a browser. This automatically detects the extension, and displays the data intelligently, supporting video, audio, and images (thanks to [render-media](http://npmjs.com/package/render-media)).
 
-It will attempt to display filetypes intelligently, like .csv and .json.
+It will attempt to display filetypes intelligently, like .csv, .json, and .geojson! 
 
 
 ### install
@@ -17,7 +17,7 @@ npm install render-data
 var data = require('render-data')
 var file = {
   name: 'stuff.R',
-  createReadStream: function () { 
+  createReadStream: function () {
     return fs.createReadStream('/path/to/my/data/and/stuff')
   }
 }
