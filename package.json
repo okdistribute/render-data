@@ -1,6 +1,6 @@
 {
   "name": "render-data",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Automagically render data files in the browser, like render-media",
   "main": "index.js",
   "scripts": {
