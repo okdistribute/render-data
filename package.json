@@ -22,6 +22,7 @@
     "leaflet": "^0.7.7",
     "leaflet-default": "^1.0.0",
     "leaflet-geojson-stream": "0.0.0",
+    "leaflet-stream": "^1.1.0",
     "pump": "^1.0.1",
     "render-media": "^2.0.2",
     "stream-to-blob-url": "^2.1.0"
