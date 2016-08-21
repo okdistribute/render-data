@@ -2,7 +2,7 @@
 
 Show a data stream in a browser. This automatically detects the extension, and displays the data intelligently, supporting video, audio, and images (thanks to [render-media](http://npmjs.com/package/render-media)).
 
-It will attempt to display filetypes intelligently, like .csv, .json, and .geojson! 
+It will attempt to display filetypes intelligently, like .csv, .json, and .geojson!
 
 
 ### install
@@ -21,7 +21,7 @@ var file = {
     return fs.createReadStream('/path/to/my/data/and/stuff')
   }
 }
-data.render(file, elem, function (err) {
+data.render(file, elem, opts, function (err) {
   console.log('done rendering')
 })
 ```
