@@ -10,6 +10,9 @@ var exts = {
   '.tsv': 'csv',
   '.json': 'raw',
   '.tex': 'raw',
+  '.bib': 'raw',
+  '.R': 'raw',
+  '.py': 'raw',
   '.geojson': 'geojson'
 }
 
