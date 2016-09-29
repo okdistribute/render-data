@@ -4,6 +4,10 @@ Show a data stream in a browser. This automatically detects the extension, and d
 
 It will attempt to display filetypes intelligently, like .csv, .json, and .geojson!
 
+### Server-side rendering
+
+Can also be used in server-side applications to statically render directory trees via javascript. However, geojson will not render in server-side due to a dependence on `window` from Leaflet.
+
 
 ### install
 
