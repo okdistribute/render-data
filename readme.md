@@ -6,7 +6,7 @@ It will attempt to display filetypes intelligently, like .csv, .json, and .geojs
 
 ### Server-side rendering
 
-Can also be used in server-side applications to statically render directory trees via javascript. However, geojson will not render in server-side due to a dependence on `window` from Leaflet.
+Can also be used in server-side applications to statically render the DOM. However, geojson will not render in server-side due to a dependence on `window` from Leaflet.
 
 
 ### install
