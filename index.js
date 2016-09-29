@@ -3,7 +3,7 @@ var media = require('render-media')
 
 var raw = require('./lib/raw')
 var csv = require('./lib/csv')
-var geojson = require('./lib/geojson')
+var geojson = (typeof window !== 'undefined') ? require('./lib/geojson') : null
 
 var exts = {
   '.csv': 'csv',
@@ -31,7 +31,7 @@ function append (file, el, cb) {
 
   var filetype = exts[path.extname(file.name).toLowerCase()]
   if (filetype === 'csv') return csv(file, el, cb)
-  if (filetype === 'geojson') return geojson(file, el, cb)
+  if (filetype === 'geojson' && geojson) return geojson(file, el, cb)
   if (filetype === 'raw') return raw(file, el, cb)
   media.append(file, el, cb)
 }
